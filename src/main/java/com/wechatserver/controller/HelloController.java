@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/wechat/test.do")
+@RequestMapping("/test.do")
 public class HelloController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
