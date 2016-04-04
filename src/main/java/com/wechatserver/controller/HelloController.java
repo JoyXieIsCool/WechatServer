@@ -13,7 +13,7 @@ import java.util.Date;
 public class HelloController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日");
 		String result = formatter.format(new Date());
 		model.addAttribute("message", "Current Time: " + result);
 		return "hello";
