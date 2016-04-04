@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -12,7 +13,9 @@ import java.util.Date;
 public class HelloController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		model.addAttribute("message", "Current Time: " + new Date());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+		String result = formatter.format(new Date());
+		model.addAttribute("message", "Current Time: " + result);
 		return "hello";
 	}
 }
