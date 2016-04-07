@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -42,6 +44,11 @@ public class WechatDispatchController {
         }
 
         return "false";
+    }
+
+    @RequestMapping(value="404")
+    public String to404(HttpServletRequest req, HttpServletResponse rep) {
+        return "404";
     }
 
     /**
