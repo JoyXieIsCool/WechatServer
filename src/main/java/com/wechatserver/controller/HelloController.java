@@ -18,7 +18,7 @@ public class HelloController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, String signature, String timestamp, String nonce, String echostr) {
-		logger.debug("~~~~~~~~ yo yo yo ~~~~~~~~~~");
+		logger.info("~~~~~~~~ yo yo yo ~~~~~~~~~~");
 		System.out.println("in~~" + timestamp);
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 hh:mm:ss");
 		String result = formatter.format(new Date());
