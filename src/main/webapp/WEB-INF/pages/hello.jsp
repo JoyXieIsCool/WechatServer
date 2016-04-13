@@ -6,5 +6,8 @@
 </head>
 <body>
 	<h1>当前系统时间：${message}</h1>
+	<form method="post" action="">
+		<input name="data" type="text" />
+	</form>
 </body>
 </html>
