@@ -24,8 +24,15 @@ public class PushNotificationHandler {
         return null;
     }
 
+    /**
+     * 子类根据解析后的 XML 进行判断，一般是返回this即可，但如果子类还维护了一个映射表的话则需要添加相应的逻辑
+     * @param msg
+     * @return
+     */
     protected PushNotificationHandler getCurrentHandler(Map<String, Object> msg) {
-        return this;
+        //return this;
+        // 其实这里返回this也可以调用子类的 handleNotification() 方法，但是意义不够直接，所以交由子类去返回this或其它对象，若子类不实现则返回空实现
+        return new PushNotificationHandler();
     }
 
     /**
