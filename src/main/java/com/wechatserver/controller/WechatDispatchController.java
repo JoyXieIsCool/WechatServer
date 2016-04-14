@@ -37,7 +37,7 @@ public class WechatDispatchController {
      * @param echostr
      * @return
      */
-    @RequestMapping(value="verify", method = RequestMethod.GET)
+    @RequestMapping(value="washcar", method = RequestMethod.GET)
     @ResponseBody
     public String verify(String signature, String timestamp, String nonce, String echostr) {
         logger.info("signature:" + signature);
@@ -65,7 +65,7 @@ public class WechatDispatchController {
         return "false";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value="washcar", method = RequestMethod.POST)
     public void handleMessage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         logger.info("Request URL is : " + req.getRequestURL().toString());
         logger.info("Query String is: " + req.getQueryString());
