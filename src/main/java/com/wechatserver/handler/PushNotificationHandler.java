@@ -27,7 +27,7 @@ public class PushNotificationHandler {
     /**
      * 子类根据解析后的 XML 进行判断，一般是返回this即可，但如果子类还维护了一个映射表的话则需要添加相应的逻辑
      * @param msg
-     * @return
+     * @return 返回子类的处理器
      */
     protected PushNotificationHandler getCurrentHandler(Map<String, Object> msg) {
         //return this;
@@ -44,6 +44,11 @@ public class PushNotificationHandler {
         handlerMap.put(msgType, handler);
     }
 
+    /**
+     * 外部类只调用该方法来获取
+     * @param msg
+     * @return
+     */
     public static PushNotificationHandler getHandler(Map<String, Object> msg) {
         // 首先根据 msgType 查找handler
         PushNotificationHandler handler = handlerMap.get(msg.get(MessageConstant.MSG_TYPE));

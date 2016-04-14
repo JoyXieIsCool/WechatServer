@@ -1,5 +1,7 @@
 package com.wechatserver.controller;
 
+import com.wechatserver.handler.PushNotificationHandler;
+import com.wechatserver.util.XMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,10 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * 做微信接入验证的Controller
@@ -62,11 +66,35 @@ public class WechatDispatchController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseBody
-    public String handleMessage(HttpServletRequest req) {
+    public void handleMessage(HttpServletRequest req, HttpServletResponse resp) throws Exception {
         logger.info("Request URL is : " + req.getRequestURL().toString());
         logger.info("Query String is: " + req.getQueryString());
-        return "fuck";
+
+        BufferedReader reader = req.getReader();
+        StringBuffer buffer = new StringBuffer();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            buffer.append(line);
+        }
+
+        logger.info("receive message:\n");
+        logger.info(buffer.toString());
+
+        Map<String, Object> msg = XMLUtil.getMapFromXML(buffer.toString());
+        PushNotificationHandler handler = PushNotificationHandler.getHandler(msg);
+        String replyMsg = handler.handleNotification(msg);
+        logger.info("reply message: \n");
+        logger.info(replyMsg);
+
+        resp.setCharacterEncoding("UTF-8");
+
+        if (null == replyMsg) {
+            resp.setContentType("text/html");
+            resp.getWriter().write("success");
+        } else {
+            resp.setContentType("text/xml");
+            resp.getWriter().write(replyMsg);
+        }
     }
 
     /**

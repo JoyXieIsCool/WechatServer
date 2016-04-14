@@ -17,4 +17,4 @@ Servers/
 # properties file #
 *.properties
 # not include the properties file existed in the src/main/resources folder
-!src/main/resources/*.properties
+#!src/main/resources/*.properties

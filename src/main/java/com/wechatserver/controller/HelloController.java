@@ -1,5 +1,7 @@
 package com.wechatserver.controller;
 
+import com.wechatserver.handler.PushNotificationHandler;
+import com.wechatserver.util.XMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/test")
@@ -42,5 +45,33 @@ public class HelloController {
 				"    <MsgType><![CDATA[text]]></MsgType>\n" +
 				"    <Content><![CDATA[你好]]></Content>\n" +
 				"</xml>");
+	}
+
+	@RequestMapping(value = "/txt")
+	public void replyTextMsg(HttpServletResponse resp) {
+		String xmlString = "<xml>\n" +
+				"<ToUserName><![CDATA[%s]]></ToUserName>\n" +
+				"<FromUserName><![CDATA[%s]]></FromUserName>\n" +
+				"<CreateTime>%d</CreateTime>\n" +
+				"<MsgType><![CDATA[text]]></MsgType>\n" +
+				"<Content><![CDATA[你好]]></Content>\n" +
+				"</xml>";
+		try {
+			xmlString = String.format(xmlString, "to91小站", "from Joey", System.currentTimeMillis());
+			Map<String, Object> map = XMLUtil.getMapFromXML(xmlString);
+
+			PushNotificationHandler handler = PushNotificationHandler.getHandler(map);
+			String reply = handler.handleNotification(map);
+
+			System.out.println(map);
+			System.out.println(reply);
+
+			resp.setContentType("text/xml");
+			resp.setCharacterEncoding("UTF-8");
+			PrintWriter writer = resp.getWriter();
+			writer.write(reply);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
