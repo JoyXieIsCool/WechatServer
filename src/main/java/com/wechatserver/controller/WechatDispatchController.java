@@ -77,14 +77,17 @@ public class WechatDispatchController {
             buffer.append(line);
         }
 
-        logger.info("receive message:\n");
-        logger.info(buffer.toString());
+        logger.info("====== start receive message =======");
+        logger.info("\n" + buffer.toString());
+        logger.info("====== end receive message =======");
 
         Map<String, Object> msg = XMLUtil.getMapFromXML(buffer.toString());
         PushNotificationHandler handler = PushNotificationHandler.getHandler(msg);
         String replyMsg = handler.handleNotification(msg);
-        logger.info("reply message: \n");
-        logger.info(replyMsg);
+
+        logger.info("====== start reply message ======");
+        logger.info("\n" + replyMsg);
+        logger.info("====== end reply message ======");
 
         resp.setCharacterEncoding("UTF-8");
 
