@@ -6,20 +6,20 @@ import java.util.Map;
 
 /**
  * Author: Joey
- * Date: 2016/4/14.
- * 微信图片消息的处理类
+ * Date: 2016/4/15
+ * Time: 17:47
+ * 处理微信小视频消息，暂不做任何处理
  */
 @Component
-public class ImageMessageHandler extends PushNotificationHandler{
+public class ShortvideoMessageHandler extends PushNotificationHandler {
 
     static {
-        // 将子类的映射关系添加到父类中
-        addHandler("image", new ImageMessageHandler());
+        // 将子类的映射添加到父类中
+        addHandler("shortvideo", new ShortvideoMessageHandler());
     }
 
     @Override
     public String handleNotification(Map<String, Object> msg) {
-        // 对于图片信息目前不做任何处理
         return null;
     }
 
