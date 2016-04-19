@@ -1,6 +1,8 @@
 package com.wechatserver.controller;
 
+import com.wechatserver.constant.WechatConfigConstant;
 import com.wechatserver.handler.PushNotificationHandler;
+import com.wechatserver.util.SystemConfigUtil;
 import com.wechatserver.util.XMLUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/")
 public class WechatDispatchController {
 
-    private static final String TOKEN = "JoeyXieIsCool";
+    private static final String TOKEN = SystemConfigUtil.getWechatProperty(WechatConfigConstant.TOKEN);
     private static final Logger logger = LoggerFactory.getLogger(WechatDispatchController.class);
 
 
